@@ -1,0 +1,19 @@
+{
+  "name": "My Gmail Briefing",
+  "short_name": "Gmail Briefing",
+  "description": "Daily inbox-zero Gmail triage and morning briefing",
+  "start_url": "/My-Gmail-Briefing/",
+  "scope": "/My-Gmail-Briefing/",
+  "display": "standalone",
+  "background_color": "#0b0b16",
+  "theme_color": "#0b0b16",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
