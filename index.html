@@ -52,7 +52,6 @@ a{color:inherit;}
   color:var(--text);font-size:16px;padding:0 16px;outline:none;transition:border-color .15s;
 }
 .field:focus{border-color:var(--pink);}
-.field.code{letter-spacing:8px;text-align:center;font-weight:700;font-size:22px;}
 .btn{
   width:100%;height:52px;border:none;border-radius:13px;font-size:16px;font-weight:700;color:#fff;
   background:linear-gradient(135deg,var(--pink),var(--pink-d));margin-top:14px;
@@ -61,7 +60,10 @@ a{color:inherit;}
 .btn:active{transform:scale(.98);}
 .btn[disabled]{opacity:.5;}
 .btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--muted);height:44px;font-size:14px;margin-top:10px;}
-.msg{font-size:13px;margin-top:12px;line-height:1.5;min-height:18px;}
+.sent-icon{font-size:42px;text-align:center;margin:2px 0 10px;}
+.sent-title{font-size:18px;font-weight:800;text-align:center;}
+.sent-sub{font-size:13px;color:var(--muted);text-align:center;margin-top:7px;line-height:1.55;}
+.msg{font-size:13px;margin-top:12px;line-height:1.5;min-height:18px;text-align:center;}
 .msg.err{color:var(--pink);}
 .msg.ok{color:var(--green);}
 .fine{font-size:11px;color:var(--muted2);margin-top:20px;line-height:1.5;max-width:300px;}
@@ -186,12 +188,13 @@ a{color:inherit;}
     <div id="emailStep">
       <p class="field-label">Email</p>
       <input id="emailInput" class="field" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" autocapitalize="off" spellcheck="false">
-      <button id="sendBtn" class="btn">Send me a code</button>
+      <button id="sendBtn" class="btn">Email me a sign-in link</button>
     </div>
-    <div id="codeStep" class="hidden">
-      <p class="field-label">Enter the 6-digit code we emailed you</p>
-      <input id="codeInput" class="field code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="------">
-      <button id="verifyBtn" class="btn">Verify and sign in</button>
+    <div id="sentStep" class="hidden">
+      <div class="sent-icon">&#9993;&#65039;</div>
+      <p class="sent-title">Check your email</p>
+      <p class="sent-sub" id="sentSub">We sent a sign-in link. Open it on this device to sign in.</p>
+      <button id="resendBtn" class="btn ghost">Send again</button>
       <button id="backBtn" class="btn ghost">Use a different email</button>
     </div>
     <p id="loginMsg" class="msg"></p>
@@ -233,7 +236,7 @@ const OWNER_EMAIL = 'bassem.hoss17@gmail.com';
 const AGE_WARN_DAYS = 3; // items older than this in backlog get flagged
 
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false }
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'implicit' }
 });
 
 // ===================== STATE =====================
@@ -271,28 +274,20 @@ function daysOld(iso){
   return Math.floor((Date.now()-new Date(iso).getTime())/86400000);
 }
 
-// ===================== AUTH =====================
-async function sendCode(){
+// ===================== AUTH (passwordless sign-in link) =====================
+async function sendLink(){
   const email = $('emailInput').value.trim().toLowerCase();
   if(!email || !email.includes('@')){ setMsg('Enter a valid email.', 'err'); return; }
   S.email = email;
-  $('sendBtn').disabled = true; setMsg('Sending code...', '');
-  const { error } = await db.auth.signInWithOtp({ email, options:{ shouldCreateUser:true } });
-  $('sendBtn').disabled = false;
+  $('sendBtn').disabled = true; $('resendBtn').disabled = true; setMsg('Sending...', '');
+  const redirect = window.location.origin + window.location.pathname;
+  const { error } = await db.auth.signInWithOtp({ email, options:{ shouldCreateUser:true, emailRedirectTo: redirect } });
+  $('sendBtn').disabled = false; $('resendBtn').disabled = false;
   if(error){ setMsg(error.message, 'err'); return; }
+  $('sentSub').textContent = 'We sent a sign-in link to ' + email + '. Open it on this device, then return here.';
   $('emailStep').classList.add('hidden');
-  $('codeStep').classList.remove('hidden');
-  setMsg('Code sent to ' + email + '. Check your inbox.', 'ok');
-  $('codeInput').focus();
-}
-async function verifyCode(){
-  const token = $('codeInput').value.trim();
-  if(token.length < 6){ setMsg('Enter the 6-digit code.', 'err'); return; }
-  $('verifyBtn').disabled = true; setMsg('Verifying...', '');
-  const { error } = await db.auth.verifyOtp({ email:S.email, token, type:'email' });
-  $('verifyBtn').disabled = false;
-  if(error){ setMsg(error.message, 'err'); return; }
-  // onAuthStateChange will switch to the app
+  $('sentStep').classList.remove('hidden');
+  setMsg('', '');
 }
 function setMsg(t,cls){ const m=$('loginMsg'); m.textContent=t; m.className='msg'+(cls?' '+cls:''); }
 
@@ -466,11 +461,10 @@ function footer(){
 }
 
 // ===================== EVENTS =====================
-$('sendBtn').addEventListener('click', sendCode);
-$('verifyBtn').addEventListener('click', verifyCode);
-$('backBtn').addEventListener('click', ()=>{ $('codeStep').classList.add('hidden'); $('emailStep').classList.remove('hidden'); setMsg('',''); });
-$('emailInput').addEventListener('keydown', e=>{ if(e.key==='Enter') sendCode(); });
-$('codeInput').addEventListener('keydown', e=>{ if(e.key==='Enter') verifyCode(); });
+$('sendBtn').addEventListener('click', sendLink);
+$('resendBtn').addEventListener('click', sendLink);
+$('backBtn').addEventListener('click', ()=>{ $('sentStep').classList.add('hidden'); $('emailStep').classList.remove('hidden'); setMsg('',''); });
+$('emailInput').addEventListener('keydown', e=>{ if(e.key==='Enter') sendLink(); });
 $('refreshBtn').addEventListener('click', loadData);
 $('signOutBtn').addEventListener('click', signOut);
 
