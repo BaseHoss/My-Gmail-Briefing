@@ -22,44 +22,27 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;}
-body{
-  background:var(--bg);color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;
-  -webkit-font-smoothing:antialiased;overscroll-behavior-y:none;
-}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none;}
 .hidden{display:none !important;}
 button{font-family:inherit;cursor:pointer;}
 a{color:inherit;}
 
-/* ---------- LOGIN ---------- */
-.login-wrap{
-  min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:32px 26px;text-align:center;
-  background:
-    radial-gradient(60% 40% at 50% 22%, rgba(58,10,94,.55), transparent 70%),
-    var(--bg);
-}
+.login-wrap{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 26px;text-align:center;background:radial-gradient(60% 40% at 50% 22%, rgba(58,10,94,.55), transparent 70%),var(--bg);}
 .login-icon{width:88px;height:88px;border-radius:24px;box-shadow:0 18px 50px rgba(232,53,96,.35);margin-bottom:22px;}
 .login-wrap h1{font-size:23px;font-weight:800;letter-spacing:-.4px;}
 .login-wrap .sub{font-size:14px;color:var(--muted);margin-top:8px;max-width:280px;line-height:1.5;}
-.login-card{
-  width:100%;max-width:360px;margin-top:30px;background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--radius);padding:20px;text-align:left;
-}
+.login-card{width:100%;max-width:360px;margin-top:30px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;text-align:left;}
 .field-label{font-size:12px;font-weight:600;color:var(--muted);margin:0 0 7px 3px;}
-.field{
-  width:100%;height:52px;border-radius:13px;border:1.5px solid var(--line);background:var(--bg2);
-  color:var(--text);font-size:16px;padding:0 16px;outline:none;transition:border-color .15s;
-}
+.field{width:100%;height:52px;border-radius:13px;border:1.5px solid var(--line);background:var(--bg2);color:var(--text);font-size:16px;padding:0 16px;outline:none;transition:border-color .15s;}
 .field:focus{border-color:var(--pink);}
-.btn{
-  width:100%;height:52px;border:none;border-radius:13px;font-size:16px;font-weight:700;color:#fff;
-  background:linear-gradient(135deg,var(--pink),var(--pink-d));margin-top:14px;
-  transition:transform .12s,opacity .15s;
-}
+.btn{width:100%;height:52px;border:none;border-radius:13px;font-size:16px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--pink),var(--pink-d));margin-top:14px;transition:transform .12s,opacity .15s;}
 .btn:active{transform:scale(.98);}
 .btn[disabled]{opacity:.5;}
 .btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--muted);height:44px;font-size:14px;margin-top:10px;}
+.btn.google{background:#fff;color:#1f1f1f;display:flex;align-items:center;justify-content:center;gap:9px;}
+.btn.google svg{width:18px;height:18px;}
+.or-div{display:flex;align-items:center;gap:10px;margin:16px 0 2px;color:var(--muted2);font-size:11px;}
+.or-div::before,.or-div::after{content:'';flex:1;height:1px;background:var(--line);}
 .sent-icon{font-size:42px;text-align:center;margin:2px 0 10px;}
 .sent-title{font-size:18px;font-weight:800;text-align:center;}
 .sent-sub{font-size:13px;color:var(--muted);text-align:center;margin-top:7px;line-height:1.55;}
@@ -68,41 +51,25 @@ a{color:inherit;}
 .msg.ok{color:var(--green);}
 .fine{font-size:11px;color:var(--muted2);margin-top:20px;line-height:1.5;max-width:300px;}
 
-/* ---------- APP HEADER ---------- */
-.app-header{
-  position:sticky;top:0;z-index:50;background:rgba(11,11,22,.86);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top) + 12px) 14px 0;
-}
+.app-header{position:sticky;top:0;z-index:50;background:rgba(11,11,22,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top) + 12px) 14px 0;}
 .hdr-top{display:flex;align-items:center;gap:12px;padding-bottom:12px;}
 .hdr-icon{width:42px;height:42px;border-radius:12px;flex-shrink:0;}
 .hdr-info{flex:1;min-width:0;}
 .hdr-info h1{font-size:17px;font-weight:800;letter-spacing:-.3px;}
 .hdr-info p{font-size:11.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.hdr-btn{
-  width:38px;height:38px;border-radius:50%;border:none;background:var(--surface);color:var(--muted);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
+.hdr-btn{width:38px;height:38px;border-radius:50%;border:none;background:var(--surface);color:var(--muted);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .hdr-btn:active{background:var(--surface2);}
 .hdr-btn.spin svg{animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
-
-/* tabs */
-.tabs{display:flex;gap:4px;padding:0 0 0;}
-.tab{
-  flex:1;padding:11px 4px;border:none;background:transparent;color:var(--muted);font-size:12.5px;font-weight:600;
-  border-bottom:2.5px solid transparent;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;
-}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex:1 0 auto;padding:11px 10px;border:none;background:transparent;color:var(--muted);font-size:12.5px;font-weight:600;border-bottom:2.5px solid transparent;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;}
 .tab.active{color:var(--text);border-bottom-color:var(--pink);}
 .tab .pill{background:var(--surface2);color:var(--muted);font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;}
 .tab.active .pill{background:var(--pink);color:#fff;}
 
-/* ---------- CONTENT ---------- */
-.content{padding:14px 14px calc(env(safe-area-inset-bottom) + 86px);max-width:560px;margin:0 auto;}
-
-.banner{
-  border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;
-  background:linear-gradient(135deg,rgba(255,77,109,.16),rgba(160,107,255,.14));border:1px solid rgba(255,77,109,.22);
-}
+.content{padding:14px 14px calc(env(safe-area-inset-bottom) + 86px);max-width:620px;margin:0 auto;}
+.banner{border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;background:linear-gradient(135deg,rgba(255,77,109,.16),rgba(160,107,255,.14));border:1px solid rgba(255,77,109,.22);}
 .banner .b-label{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--pink);}
 .banner .b-text{font-size:14px;line-height:1.55;margin-top:6px;color:var(--text);}
 
@@ -110,11 +77,12 @@ a{color:inherit;}
 .trend-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px;}
 .trend-head .t-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;}
 .trend-head .t-sub{font-size:11px;color:var(--muted2);}
-.bars{display:flex;align-items:flex-end;gap:5px;height:46px;}
-.bar{flex:1;background:linear-gradient(180deg,var(--purple),rgba(160,107,255,.25));border-radius:4px 4px 2px 2px;min-height:4px;position:relative;}
+.bars{display:flex;align-items:flex-end;gap:6px;height:50px;}
+.bcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;}
+.bcol .bwrap{width:100%;height:46px;display:flex;align-items:flex-end;}
+.bar{width:100%;background:linear-gradient(180deg,var(--purple),rgba(160,107,255,.25));border-radius:5px 5px 2px 2px;min-height:4px;}
 .bar.today{background:linear-gradient(180deg,var(--pink),rgba(255,77,109,.3));}
-.bar-labels{display:flex;gap:5px;margin-top:6px;}
-.bar-label{flex:1;text-align:center;font-size:9px;color:var(--muted2);}
+.bcol .blab{font-size:10px;color:var(--muted2);}
 
 .sec-label{font-size:12px;font-weight:800;letter-spacing:.4px;margin:18px 3px 9px;display:flex;align-items:center;gap:8px;}
 .sec-label .dot{width:9px;height:9px;border-radius:50%;}
@@ -122,87 +90,98 @@ a{color:inherit;}
 .sec-label.must .dot{background:var(--amber);} .sec-label.must{color:var(--amber);}
 .sec-label.read .dot{background:var(--purple);} .sec-label.read{color:var(--purple);}
 .sec-label.done .dot{background:var(--green);} .sec-label.done{color:var(--green);}
-.sec-label:first-child{margin-top:2px;}
 
-.card{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:13px 13px 13px 14px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;position:relative;
-  transition:transform .12s,opacity .2s;
-}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:13px 13px 13px 14px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;position:relative;transition:transform .12s,opacity .2s;}
 .card.crit{border-left:3px solid var(--pink);}
 .card.must{border-left:3px solid var(--amber);}
 .card.read{border-left:3px solid var(--purple);}
 .card.is-resolved{opacity:.5;}
-.card:active{transform:scale(.99);}
-
-.check{
-  width:26px;height:26px;border-radius:50%;border:2px solid var(--line);background:transparent;flex-shrink:0;margin-top:2px;
-  display:flex;align-items:center;justify-content:center;transition:all .15s;color:transparent;
-}
+.check{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);background:transparent;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s;color:transparent;}
 .check.on{background:var(--green);border-color:var(--green);color:#06281a;}
 .card-main{flex:1;min-width:0;}
 .card-top{display:flex;align-items:center;gap:8px;}
 .card-from{font-size:13.5px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .card-time{font-size:11px;color:var(--muted2);flex-shrink:0;}
-.card-subject{font-size:13px;font-weight:500;margin-top:3px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-subject{font-size:13px;font-weight:500;margin-top:3px;color:var(--text);}
 .card.is-read .card-from,.card.is-read .card-subject{font-weight:500;color:var(--muted);}
 .card-snippet{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.action-box{margin-top:9px;background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:10px;padding:8px 11px;}
+.action-box .a-label{font-size:9.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--blue);margin-bottom:3px;}
+.action-box .a-text{font-size:12.5px;color:var(--text);line-height:1.45;}
 .card-foot{display:flex;align-items:center;gap:7px;margin-top:9px;flex-wrap:wrap;}
 .chip{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:11px;}
 .chip.topic{background:var(--surface2);color:var(--muted);}
 .chip.label{background:var(--read-bg);color:var(--purple);}
+.due{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:11px;}
+.due.calm{background:var(--surface2);color:var(--muted);}
+.due.soon{background:var(--must-bg);color:var(--amber);}
+.due.urgent{background:var(--crit-bg);color:var(--pink);}
 .age{font-size:10.5px;color:var(--muted2);}
 .age.warn{color:var(--amber);}
+.card-actions{display:flex;gap:8px;margin-top:11px;}
+.gmail-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--text);font-size:12.5px;font-weight:600;flex:1;}
+.gmail-btn:active{background:var(--line);}
+.gmail-btn svg{width:15px;height:15px;}
 
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;text-align:center;gap:12px;}
 .empty .emoji{font-size:50px;}
 .empty .e-title{font-size:17px;font-weight:700;}
 .empty .e-sub{font-size:13.5px;color:var(--muted);max-width:260px;line-height:1.5;}
 
-.spinner{width:40px;height:40px;border:3px solid var(--surface2);border-top-color:var(--pink);border-radius:50%;animation:spin .75s linear infinite;}
+.cal-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:14px;}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
+.cal-title{font-size:15px;font-weight:800;}
+.cal-nav{display:flex;gap:8px;}
+.cal-nav button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:17px;line-height:1;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+.cal-dow{text-align:center;font-size:10px;font-weight:700;color:var(--muted2);padding-bottom:2px;}
+.cal-cell{aspect-ratio:1;border-radius:9px;background:var(--bg2);border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12.5px;color:var(--text);}
+.cal-cell.empty{background:transparent;}
+.cal-cell.today{border-color:var(--pink);color:var(--pink);font-weight:800;}
+.cal-cell.sel{background:var(--surface2);border-color:var(--purple);}
+.cal-dots{display:flex;gap:3px;height:6px;align-items:center;}
+.cal-dot{width:5px;height:5px;border-radius:50%;}
+.cal-dot.land{background:var(--purple);}
+.cal-dot.due{background:var(--pink);}
+.cal-legend{display:flex;gap:16px;margin:13px 2px 2px;font-size:11px;color:var(--muted);}
+.cal-legend span{display:inline-flex;align-items:center;gap:6px;}
+.cal-legend i{width:8px;height:8px;border-radius:50%;}
 
-/* footer */
-.foot{
-  position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,22,.92);backdrop-filter:blur(10px);
-  border-top:1px solid var(--line);padding:9px 16px calc(env(safe-area-inset-bottom) + 9px);
-  font-size:10.5px;color:var(--muted2);text-align:center;line-height:1.5;z-index:40;
-}
-.toast{
-  position:fixed;left:50%;transform:translateX(-50%);bottom:78px;z-index:90;
-  background:var(--surface2);border:1px solid var(--line);color:var(--text);
-  font-size:13px;font-weight:600;padding:11px 18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);
-  opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;
-}
+.foot{position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,22,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:9px 16px calc(env(safe-area-inset-bottom) + 9px);font-size:10.5px;color:var(--muted2);text-align:center;line-height:1.5;z-index:40;}
+.spinner{width:40px;height:40px;border:3px solid var(--surface2);border-top-color:var(--pink);border-radius:50%;animation:spin .75s linear infinite;}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;z-index:90;background:var(--surface2);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:600;padding:11px 18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px);}
 </style>
 </head>
 <body>
 
-<!-- ===================== LOGIN ===================== -->
 <div id="loginView" class="login-wrap">
   <img class="login-icon" src="icon.svg" alt="App icon">
   <h1>My Gmail Briefing</h1>
   <p class="sub">Your inbox, triaged to zero each morning. Sign in to see what matters.</p>
-
   <div class="login-card">
     <div id="emailStep">
       <p class="field-label">Email</p>
       <input id="emailInput" class="field" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" autocapitalize="off" spellcheck="false">
       <button id="sendBtn" class="btn">Email me a sign-in link</button>
+      <div class="or-div">or</div>
+      <button id="googleBtn" class="btn google">
+        <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Continue with Google
+      </button>
     </div>
     <div id="sentStep" class="hidden">
       <div class="sent-icon">&#9993;&#65039;</div>
       <p class="sent-title">Check your email</p>
       <p class="sent-sub" id="sentSub">We sent a sign-in link. Open it on this device to sign in.</p>
       <button id="resendBtn" class="btn ghost">Send again</button>
-      <button id="backBtn" class="btn ghost">Use a different email</button>
+      <button id="backBtn" class="btn ghost">Use a different method</button>
     </div>
     <p id="loginMsg" class="msg"></p>
   </div>
   <p class="fine">Private to your account. Email data is protected by row-level security and never shown to anyone else.</p>
 </div>
 
-<!-- ===================== APP ===================== -->
 <div id="appView" class="hidden">
   <header class="app-header">
     <div class="hdr-top">
@@ -211,7 +190,7 @@ a{color:inherit;}
         <h1>My Gmail Briefing</h1>
         <p id="hdrSub">Loading...</p>
       </div>
-      <button id="refreshBtn" class="hdr-btn" title="Refresh" aria-label="Refresh">
+      <button id="refreshBtn" class="hdr-btn" title="Re-read briefing" aria-label="Refresh">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
       </button>
       <button id="signOutBtn" class="hdr-btn" title="Sign out" aria-label="Sign out">
@@ -220,7 +199,6 @@ a{color:inherit;}
     </div>
     <div class="tabs" id="tabs"></div>
   </header>
-
   <main class="content" id="main"></main>
   <div class="foot" id="foot"></div>
 </div>
@@ -229,279 +207,212 @@ a{color:inherit;}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ===================== CONFIG =====================
 const SUPABASE_URL = 'https://pltxzdwgvmdlbhlcizjn.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsdHh6ZHdndm1kbGJobGNpempuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNDAxNjksImV4cCI6MjA5NjkxNjE2OX0.KmC-aT0c4MBEedoL5MDyGs2MsLOxevlJR9L9hA6M09I';
 const OWNER_EMAIL = 'bassem.hoss17@gmail.com';
-const AGE_WARN_DAYS = 3; // items older than this in backlog get flagged
+const AGE_WARN_DAYS = 3;
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'implicit' } });
 
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'implicit' }
-});
-
-// ===================== STATE =====================
-let S = { items: [], runs: [], tab: 'all', loading: false, email: '' };
-const CATS = {
-  critical:  { key:'crit', label:'Critical',   sec:'Critical' },
-  must_read: { key:'must', label:'Must Read',   sec:'Must Read' },
-  read_later:{ key:'read', label:'Read Later',  sec:'Read Later' }
-};
+const now0 = new Date();
+let S = { items:[], runs:[], tab:'all', loading:false, email:'', calY:now0.getFullYear(), calM:now0.getMonth(), calSel:null };
+const CATS = { critical:{key:'crit',sec:'Critical'}, must_read:{key:'must',sec:'Must Read'}, read_later:{key:'read',sec:'Read Later'} };
 const CAT_ORDER = ['critical','must_read','read_later'];
 
-// ===================== HELPERS =====================
 function $(id){ return document.getElementById(id); }
 function escH(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function toast(t){ const el=$('toast'); el.textContent=t; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),1900); }
+function fromName(it){ if(it.from_name && it.from_name.trim()) return it.from_name.trim(); const e=it.from_email||''; if(e.includes('@')) return e.split('@')[0].replace(/[._+-]/g,' ').replace(/\b\w/g,c=>c.toUpperCase()); return e||'Unknown'; }
+function timeAgo(iso){ if(!iso) return ''; const d=new Date(iso), s=Math.floor((Date.now()-d)/1000); if(isNaN(s)) return ''; if(s<3600) return Math.max(1,Math.floor(s/60))+'m'; if(s<86400) return Math.floor(s/3600)+'h'; if(s<172800) return 'Yesterday'; if(s<604800) return Math.floor(s/86400)+'d'; return d.toLocaleDateString('en',{month:'short',day:'numeric'}); }
+function daysOld(iso){ if(!iso) return 0; return Math.floor((Date.now()-new Date(iso).getTime())/86400000); }
+function daysUntil(iso){ const d=new Date(iso); d.setHours(0,0,0,0); const t=new Date(); t.setHours(0,0,0,0); return Math.round((d-t)/86400000); }
+function fmtDate(iso){ return new Date(iso).toLocaleDateString('en',{day:'numeric',month:'short'}); }
+function gmailUrl(id){ return 'https://mail.google.com/mail/u/0/#all/'+id; }
 
-function fromName(it){
-  if(it.from_name && it.from_name.trim()) return it.from_name.trim();
-  const e = it.from_email || '';
-  if(e.includes('@')) return e.split('@')[0].replace(/[._+-]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-  return e || 'Unknown';
-}
-function timeAgo(iso){
-  if(!iso) return '';
-  const d=new Date(iso), now=new Date(), s=Math.floor((now-d)/1000);
-  if(isNaN(s)) return '';
-  if(s<3600) return Math.max(1,Math.floor(s/60))+'m';
-  if(s<86400) return Math.floor(s/3600)+'h';
-  if(s<172800) return 'Yesterday';
-  if(s<604800) return Math.floor(s/86400)+'d';
-  return d.toLocaleDateString('en',{month:'short',day:'numeric'});
-}
-function daysOld(iso){
-  if(!iso) return 0;
-  return Math.floor((Date.now()-new Date(iso).getTime())/86400000);
-}
-
-// ===================== AUTH (passwordless sign-in link) =====================
 async function sendLink(){
   const email = $('emailInput').value.trim().toLowerCase();
-  if(!email || !email.includes('@')){ setMsg('Enter a valid email.', 'err'); return; }
-  S.email = email;
-  $('sendBtn').disabled = true; $('resendBtn').disabled = true; setMsg('Sending...', '');
+  if(!email || !email.includes('@')){ setMsg('Enter a valid email.','err'); return; }
+  S.email = email; $('sendBtn').disabled=true; $('resendBtn').disabled=true; setMsg('Sending...','');
   const redirect = window.location.origin + window.location.pathname;
-  const { error } = await db.auth.signInWithOtp({ email, options:{ shouldCreateUser:true, emailRedirectTo: redirect } });
-  $('sendBtn').disabled = false; $('resendBtn').disabled = false;
-  if(error){ setMsg(error.message, 'err'); return; }
-  $('sentSub').textContent = 'We sent a sign-in link to ' + email + '. Open it on this device, then return here.';
-  $('emailStep').classList.add('hidden');
-  $('sentStep').classList.remove('hidden');
-  setMsg('', '');
+  const { error } = await db.auth.signInWithOtp({ email, options:{ shouldCreateUser:true, emailRedirectTo:redirect } });
+  $('sendBtn').disabled=false; $('resendBtn').disabled=false;
+  if(error){ setMsg(error.message,'err'); return; }
+  $('sentSub').textContent = 'We sent a sign-in link to '+email+'. Open it on this device, then return here.';
+  $('emailStep').classList.add('hidden'); $('sentStep').classList.remove('hidden'); setMsg('','');
+}
+async function signInGoogle(){
+  setMsg('Opening Google...','');
+  const redirect = window.location.origin + window.location.pathname;
+  const { error } = await db.auth.signInWithOAuth({ provider:'google', options:{ redirectTo:redirect } });
+  if(error){ setMsg(error.message+' (Google sign-in may not be enabled yet.)','err'); }
 }
 function setMsg(t,cls){ const m=$('loginMsg'); m.textContent=t; m.className='msg'+(cls?' '+cls:''); }
-
 async function signOut(){ await db.auth.signOut(); location.reload(); }
-
 function showLogin(){ $('loginView').classList.remove('hidden'); $('appView').classList.add('hidden'); }
 function showApp(){ $('loginView').classList.add('hidden'); $('appView').classList.remove('hidden'); }
 
-// ===================== DATA =====================
-async function loadData(){
+async function loadData(silent){
   if(S.loading) return;
-  S.loading = true;
-  $('refreshBtn').classList.add('spin');
+  S.loading=true; $('refreshBtn').classList.add('spin');
   try{
     const [itemsRes, runsRes] = await Promise.all([
-      db.from('gb_triage_items').select('*').order('gmail_date',{ ascending:false }),
-      db.from('gb_daily_runs').select('*').order('run_date',{ ascending:false }).limit(14)
+      db.from('gb_triage_items').select('*').order('gmail_date',{ascending:false}),
+      db.from('gb_daily_runs').select('*').order('run_date',{ascending:false}).limit(14)
     ]);
     if(itemsRes.error) throw itemsRes.error;
-    S.items = itemsRes.data || [];
-    S.runs = runsRes.error ? [] : (runsRes.data || []);
+    S.items = itemsRes.data||[]; S.runs = runsRes.error?[]:(runsRes.data||[]);
     renderApp();
+    if(silent) toast('Updated');
   }catch(err){
-    $('main').innerHTML = errorState(err.message || 'Could not load your briefing.');
-    $('hdrSub').textContent = 'Error';
-    $('foot').textContent = '';
+    $('main').innerHTML = errorState(err.message||'Could not load your briefing.');
+    $('hdrSub').textContent='Error'; $('foot').textContent='';
   }
-  S.loading = false;
-  $('refreshBtn').classList.remove('spin');
+  S.loading=false; $('refreshBtn').classList.remove('spin');
 }
-
 async function setStatus(threadId, status){
   const it = S.items.find(x=>x.thread_id===threadId);
-  if(it){ it.status = status; it.resolved_at = status==='resolved' ? new Date().toISOString() : null; }
+  if(it){ it.status=status; it.resolved_at = status==='resolved'?new Date().toISOString():null; }
   renderApp();
-  const { error } = await db.rpc('gb_set_status', { p_thread_id: threadId, p_status: status });
+  const { error } = await db.rpc('gb_set_status', { p_thread_id:threadId, p_status:status });
   if(error){ toast('Could not save. Retrying on refresh.'); }
 }
 
-// ===================== RENDER =====================
 function renderApp(){
   const active = S.items.filter(i=>i.status!=='resolved');
   const resolved = S.items.filter(i=>i.status==='resolved');
   const byCat = { critical:[], must_read:[], read_later:[] };
   active.forEach(i=>{ if(byCat[i.category]) byCat[i.category].push(i); });
-
-  // header subtitle
   const unread = active.filter(i=>i.status==='unread').length;
-  $('hdrSub').textContent = active.length
-    ? unread + ' unread of ' + active.length + ' open'
-    : 'Inbox clear';
-
-  // tabs
+  $('hdrSub').textContent = active.length ? unread+' unread of '+active.length+' open' : 'Inbox clear';
   const tabDefs = [
-    { id:'all', label:'All', n:active.length },
-    { id:'critical', label:'Critical', n:byCat.critical.length },
-    { id:'must_read', label:'Must', n:byCat.must_read.length },
-    { id:'read_later', label:'Later', n:byCat.read_later.length },
-    { id:'done', label:'Done', n:resolved.length }
+    {id:'all',label:'All',n:active.length},
+    {id:'critical',label:'Critical',n:byCat.critical.length},
+    {id:'must_read',label:'Must',n:byCat.must_read.length},
+    {id:'read_later',label:'Later',n:byCat.read_later.length},
+    {id:'calendar',label:'Calendar',n:0},
+    {id:'done',label:'Done',n:resolved.length}
   ];
-  $('tabs').innerHTML = tabDefs.map(t=>
-    '<button class="tab'+(S.tab===t.id?' active':'')+'" data-tab="'+t.id+'">'+t.label+
-    (t.n>0?'<span class="pill">'+t.n+'</span>':'')+'</button>').join('');
-
-  // body
-  let html = '';
-  if(S.tab==='all') html += backlogBanner(active) + trendStrip();
-
-  if(S.tab==='done'){
-    html += resolved.length ? resolved.map(card).join('') : emptyState('No completed items yet', 'Tick items off as you handle them and they will collect here.');
-  } else if(S.tab==='all'){
-    if(active.length===0){
-      html += emptyState('All clear', 'Nothing waiting on you. Your next morning run will surface new mail here.');
-    } else {
-      CAT_ORDER.forEach(cat=>{
-        if(byCat[cat].length===0) return;
-        const c = CATS[cat];
-        html += '<div class="sec-label '+c.key+'"><span class="dot"></span>'+c.sec+'</div>';
-        html += byCat[cat].map(card).join('');
-      });
-    }
-  } else {
-    const list = byCat[S.tab] || [];
-    html += list.length ? list.map(card).join('') : emptyState('Nothing here', 'No open items in this category.');
-  }
+  $('tabs').innerHTML = tabDefs.map(t=>'<button class="tab'+(S.tab===t.id?' active':'')+'" data-tab="'+t.id+'">'+t.label+(t.n>0?'<span class="pill">'+t.n+'</span>':'')+'</button>').join('');
+  let html='';
+  if(S.tab==='calendar'){ html = renderCalendar(); }
+  else if(S.tab==='done'){ html = resolved.length ? resolved.map(card).join('') : emptyState('No completed items yet','Tick items off as you handle them and they collect here.'); }
+  else if(S.tab==='all'){
+    html += backlogBanner(active) + trendStrip();
+    if(active.length===0){ html += emptyState('All clear','Nothing waiting on you. Your next morning run will surface new mail here.'); }
+    else { CAT_ORDER.forEach(cat=>{ if(byCat[cat].length===0) return; html += '<div class="sec-label '+CATS[cat].key+'"><span class="dot"></span>'+CATS[cat].sec+'</div>'; html += byCat[cat].map(card).join(''); }); }
+  } else { const list = byCat[S.tab]||[]; html = list.length ? list.map(card).join('') : emptyState('Nothing here','No open items in this category.'); }
   $('main').innerHTML = html;
-
-  // footer
   $('foot').innerHTML = footer();
 }
 
 function backlogBanner(active){
-  const aging = active.filter(i=>i.status!=='resolved' && daysOld(i.gmail_date)>=AGE_WARN_DAYS);
+  const aging = active.filter(i=>daysOld(i.gmail_date)>=AGE_WARN_DAYS);
   const crit = active.filter(i=>i.category==='critical');
   if(crit.length===0 && aging.length===0) return '';
   let txt;
-  if(crit.length>0){
-    txt = crit.length+' critical '+(crit.length===1?'item needs':'items need')+' your attention'+
-          (aging.length?', and '+aging.length+' '+(aging.length===1?'item has':'items have')+' been waiting a while.':'.');
-  } else {
-    txt = aging.length+' '+(aging.length===1?'item has':'items have')+' been waiting '+AGE_WARN_DAYS+'+ days. Clear them or tick them off.';
-  }
+  if(crit.length>0){ txt = crit.length+' critical '+(crit.length===1?'item needs':'items need')+' your attention'+(aging.length?', and '+aging.length+' '+(aging.length===1?'item has':'items have')+' been waiting a while.':'.'); }
+  else { txt = aging.length+' '+(aging.length===1?'item has':'items have')+' been waiting '+AGE_WARN_DAYS+'+ days. Clear them or tick them off.'; }
   return '<div class="banner"><div class="b-label">Needs you</div><div class="b-text">'+escH(txt)+'</div></div>';
 }
-
 function trendStrip(){
   if(!S.runs || S.runs.length<2) return '';
-  const runs = S.runs.slice().reverse(); // oldest to newest
+  const runs = S.runs.slice().reverse();
   const max = Math.max(1, ...runs.map(r=>r.organized||0));
   const today = new Date().toISOString().slice(0,10);
-  const bars = runs.map(r=>{
-    const h = Math.round(((r.organized||0)/max)*100);
-    const isToday = r.run_date===today;
-    return '<div class="bar'+(isToday?' today':'')+'" style="height:'+Math.max(8,h)+'%" title="'+r.run_date+': '+(r.organized||0)+' organised"></div>';
-  }).join('');
-  const labels = runs.map(r=>{
-    const d=new Date(r.run_date);
-    return '<div class="bar-label">'+(isNaN(d)?'':d.toLocaleDateString('en',{weekday:'narrow'}))+'</div>';
-  }).join('');
-  const totalDays = runs.length;
-  return '<div class="trend"><div class="trend-head"><span class="t-title">Organised per day</span>'+
-    '<span class="t-sub">last '+totalDays+' runs</span></div>'+
-    '<div class="bars">'+bars+'</div><div class="bar-labels">'+labels+'</div></div>';
+  const cols = runs.map(r=>{ const h=Math.round(((r.organized||0)/max)*100); const isToday=r.run_date===today; const d=new Date(r.run_date); const lab=isNaN(d)?'':d.toLocaleDateString('en',{weekday:'short'}); return '<div class="bcol"><div class="bwrap"><div class="bar'+(isToday?' today':'')+'" style="height:'+Math.max(8,h)+'%" title="'+r.run_date+': '+(r.organized||0)+' organised"></div></div><div class="blab">'+lab+'</div></div>'; }).join('');
+  return '<div class="trend"><div class="trend-head"><span class="t-title">Organised per day</span><span class="t-sub">last '+runs.length+' runs</span></div><div class="bars">'+cols+'</div></div>';
 }
-
+function duePill(it){
+  if(!it.due_date) return '';
+  const n = daysUntil(it.due_date);
+  const lbl = it.due_label ? it.due_label+' ' : 'Due ';
+  let txt, cls;
+  if(n<0){ txt='Overdue by '+Math.abs(n)+'d'; cls='urgent'; }
+  else if(n===0){ txt=lbl+fmtDate(it.due_date)+' . today'; cls='urgent'; }
+  else if(n===1){ txt=lbl+fmtDate(it.due_date)+' . tomorrow'; cls='urgent'; }
+  else { txt=lbl+fmtDate(it.due_date)+' . '+n+'d left'; cls=n<=7?'soon':'calm'; }
+  return '<span class="due '+cls+'">'+escH(txt)+'</span>';
+}
 function card(it){
   const c = CATS[it.category] || CATS.read_later;
   const resolved = it.status==='resolved';
   const isRead = it.status==='read';
+  const due = duePill(it);
   const age = daysOld(it.gmail_date);
-  const ageTxt = (!resolved && age>=AGE_WARN_DAYS) ? '<span class="age warn">'+age+'d waiting</span>' : '';
+  const ageTxt = (!resolved && !it.due_date && age>=AGE_WARN_DAYS) ? '<span class="age warn">'+age+'d waiting</span>' : '';
   const topic = it.topic ? '<span class="chip topic">'+escH(it.topic)+'</span>' : '';
   const label = (it.category==='read_later' && it.gmail_label) ? '<span class="chip label">'+escH(it.gmail_label)+'</span>' : '';
-  const checkOn = resolved ? ' on' : '';
-  return ''+
-  '<div class="card '+c.key+(resolved?' is-resolved':'')+(isRead?' is-read':'')+'" data-id="'+escH(it.thread_id)+'">'+
-    '<button class="check'+checkOn+'" data-act="toggle" data-id="'+escH(it.thread_id)+'" aria-label="Mark done">'+
-      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'+
-    '</button>'+
-    '<div class="card-main" data-act="open" data-id="'+escH(it.thread_id)+'">'+
+  const actionBox = it.action ? '<div class="action-box"><div class="a-label">What to do</div><div class="a-text">'+escH(it.action)+'</div></div>' : '';
+  return '<div class="card '+c.key+(resolved?' is-resolved':'')+(isRead?' is-read':'')+'">'+
+    '<button class="check'+(resolved?' on':'')+'" data-act="toggle" data-id="'+escH(it.thread_id)+'" aria-label="Mark done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>'+
+    '<div class="card-main">'+
       '<div class="card-top"><span class="card-from">'+escH(fromName(it))+'</span><span class="card-time">'+timeAgo(it.gmail_date)+'</span></div>'+
       '<div class="card-subject">'+escH(it.subject||'(no subject)')+'</div>'+
       (it.snippet?'<div class="card-snippet">'+escH(it.snippet)+'</div>':'')+
-      '<div class="card-foot">'+topic+label+ageTxt+'</div>'+
+      actionBox+
+      '<div class="card-foot">'+topic+label+due+ageTxt+'</div>'+
+      '<div class="card-actions"><button class="gmail-btn" data-act="gmail" data-id="'+escH(it.thread_id)+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Open in Gmail</button></div>'+
     '</div>'+
   '</div>';
 }
-
-function emptyState(title,sub){
-  return '<div class="empty"><div class="emoji">'+(title==='All clear'?'✨':'📭')+'</div>'+
-    '<div class="e-title">'+escH(title)+'</div><div class="e-sub">'+escH(sub)+'</div></div>';
+function renderCalendar(){
+  const y=S.calY, m=S.calM;
+  const first=new Date(y,m,1);
+  const startDow=first.getDay();
+  const daysIn=new Date(y,m+1,0).getDate();
+  const title=first.toLocaleDateString('en',{month:'long',year:'numeric'});
+  const land={}, due={};
+  S.items.forEach(it=>{
+    if(it.category==='critical' && it.gmail_date){ const d=new Date(it.gmail_date); if(d.getFullYear()===y&&d.getMonth()===m) land[d.getDate()]=true; }
+    if(it.due_date){ const d=new Date(it.due_date); if(d.getFullYear()===y&&d.getMonth()===m){ (due[d.getDate()]=due[d.getDate()]||[]).push(it); } }
+  });
+  const dow=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  let cells=dow.map(d=>'<div class="cal-dow">'+d+'</div>').join('');
+  for(let i=0;i<startDow;i++) cells+='<div class="cal-cell empty"></div>';
+  const t=new Date();
+  for(let day=1;day<=daysIn;day++){
+    const isToday=t.getFullYear()===y&&t.getMonth()===m&&t.getDate()===day;
+    const sel=S.calSel===day;
+    let dots='';
+    if(land[day]) dots+='<span class="cal-dot land"></span>';
+    if(due[day]) dots+='<span class="cal-dot due"></span>';
+    cells+='<div class="cal-cell'+(isToday?' today':'')+(sel?' sel':'')+'" data-cal-day="'+day+'"><span>'+day+'</span><span class="cal-dots">'+dots+'</span></div>';
+  }
+  let head='<div class="cal-card"><div class="cal-head"><div class="cal-title">'+title+'</div><div class="cal-nav"><button data-cal-nav="-1">&#8249;</button><button data-cal-nav="1">&#8250;</button></div></div><div class="cal-grid">'+cells+'</div><div class="cal-legend"><span><i style="background:var(--purple)"></i>Critical landed</span><span><i style="background:var(--pink)"></i>Action due</span></div></div>';
+  let list='', listTitle='';
+  if(S.calSel && due[S.calSel]){ listTitle='Due on '+S.calSel+' '+first.toLocaleDateString('en',{month:'short'}); list=due[S.calSel].map(card).join(''); }
+  else { listTitle='Upcoming deadlines'; const withDue=S.items.filter(i=>i.due_date && i.status!=='resolved').sort((a,b)=>new Date(a.due_date)-new Date(b.due_date)); list = withDue.length ? withDue.map(card).join('') : '<div class="empty"><div class="emoji">&#128197;</div><div class="e-sub">No deadlines on record yet.</div></div>'; }
+  return head + '<div class="sec-label"><span class="dot" style="background:var(--muted)"></span>'+escH(listTitle)+'</div>' + list;
 }
-function errorState(msg){
-  return '<div class="empty"><div class="emoji">⚠️</div><div class="e-title">Could not load</div>'+
-    '<div class="e-sub">'+escH(msg)+'</div></div>';
-}
-
+function emptyState(title,sub){ return '<div class="empty"><div class="emoji">'+(title==='All clear'?'✨':'📭')+'</div><div class="e-title">'+escH(title)+'</div><div class="e-sub">'+escH(sub)+'</div></div>'; }
+function errorState(msg){ return '<div class="empty"><div class="emoji">⚠️</div><div class="e-title">Could not load</div><div class="e-sub">'+escH(msg)+'</div></div>'; }
 function footer(){
   const r = S.runs && S.runs[0];
   if(!r) return 'No run logged yet. Your morning triage will populate this.';
   const m = r.build_meta || {};
   const when = r.run_at ? new Date(r.run_at).toLocaleString('en',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : r.run_date;
-  const parts = [
-    'Last run ' + when,
-    (r.total_processed!=null ? r.total_processed+' processed' : null),
-    (r.organized!=null ? r.organized+' organised' : null),
-    (r.junk_moved!=null ? r.junk_moved+' junked' : null),
-    (m.version ? 'v'+m.version : null)
-  ].filter(Boolean);
-  return parts.join('  .  ');
+  return ['Last run '+when, (r.total_processed!=null?r.total_processed+' processed':null), (r.organized!=null?r.organized+' organised':null), (m.version?'v'+m.version:null)].filter(Boolean).join('  .  ');
 }
 
-// ===================== EVENTS =====================
 $('sendBtn').addEventListener('click', sendLink);
+$('googleBtn').addEventListener('click', signInGoogle);
 $('resendBtn').addEventListener('click', sendLink);
 $('backBtn').addEventListener('click', ()=>{ $('sentStep').classList.add('hidden'); $('emailStep').classList.remove('hidden'); setMsg('',''); });
 $('emailInput').addEventListener('keydown', e=>{ if(e.key==='Enter') sendLink(); });
-$('refreshBtn').addEventListener('click', loadData);
+$('refreshBtn').addEventListener('click', ()=>loadData(true));
 $('signOutBtn').addEventListener('click', signOut);
-
-$('tabs').addEventListener('click', e=>{
-  const b = e.target.closest('.tab'); if(!b) return;
-  S.tab = b.dataset.tab; renderApp();
-});
-
+$('tabs').addEventListener('click', e=>{ const b=e.target.closest('.tab'); if(!b) return; S.tab=b.dataset.tab; S.calSel=null; renderApp(); });
 $('main').addEventListener('click', e=>{
-  const toggle = e.target.closest('[data-act="toggle"]');
-  if(toggle){
-    const id = toggle.dataset.id;
-    const it = S.items.find(x=>x.thread_id===id);
-    if(!it) return;
-    setStatus(id, it.status==='resolved' ? 'unread' : 'resolved');
-    return;
-  }
-  const open = e.target.closest('[data-act="open"]');
-  if(open){
-    const id = open.dataset.id;
-    const it = S.items.find(x=>x.thread_id===id);
-    if(it && it.status==='unread') setStatus(id, 'read');
-    window.open('https://mail.google.com/mail/u/0/#all/'+id, '_blank');
-  }
+  const nav=e.target.closest('[data-cal-nav]');
+  if(nav){ S.calM+=parseInt(nav.dataset.calNav,10); if(S.calM<0){S.calM=11;S.calY--;} if(S.calM>11){S.calM=0;S.calY++;} S.calSel=null; renderApp(); return; }
+  const day=e.target.closest('[data-cal-day]');
+  if(day){ const dn=parseInt(day.dataset.calDay,10); S.calSel=(S.calSel===dn?null:dn); renderApp(); return; }
+  const tg=e.target.closest('[data-act="toggle"]');
+  if(tg){ const id=tg.dataset.id; const it=S.items.find(x=>x.thread_id===id); if(it) setStatus(id, it.status==='resolved'?'unread':'resolved'); return; }
+  const gm=e.target.closest('[data-act="gmail"]');
+  if(gm){ const id=gm.dataset.id; const it=S.items.find(x=>x.thread_id===id); if(it && it.status==='unread') setStatus(id,'read'); window.open(gmailUrl(id),'_blank'); return; }
 });
 
-// ===================== BOOT =====================
-db.auth.onAuthStateChange((event, session)=>{
-  if(session && session.user){
-    S.email = session.user.email || '';
-    showApp();
-    loadData();
-  } else {
-    showLogin();
-  }
-});
-
+db.auth.onAuthStateChange((event, session)=>{ if(session && session.user){ S.email=session.user.email||''; showApp(); loadData(); } else { showLogin(); } });
 (async function boot(){
   const { data:{ session } } = await db.auth.getSession();
   if(session && session.user){ showApp(); loadData(); }
