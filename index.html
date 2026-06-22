@@ -25,7 +25,7 @@ html,body{height:100%;}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none;}
 .hidden{display:none !important;}
 button{font-family:inherit;cursor:pointer;}
-a{color:inherit;}
+a{color:inherit;text-decoration:none;}
 
 .login-wrap{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 26px;text-align:center;background:radial-gradient(60% 40% at 50% 22%, rgba(58,10,94,.55), transparent 70%),var(--bg);}
 .login-icon{width:88px;height:88px;border-radius:24px;box-shadow:0 18px 50px rgba(232,53,96,.35);margin-bottom:22px;}
@@ -35,6 +35,7 @@ a{color:inherit;}
 .field-label{font-size:12px;font-weight:600;color:var(--muted);margin:0 0 7px 3px;}
 .field{width:100%;height:52px;border-radius:13px;border:1.5px solid var(--line);background:var(--bg2);color:var(--text);font-size:16px;padding:0 16px;outline:none;transition:border-color .15s;}
 .field:focus{border-color:var(--pink);}
+.field.code{letter-spacing:8px;text-align:center;font-weight:700;font-size:22px;}
 .btn{width:100%;height:52px;border:none;border-radius:13px;font-size:16px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--pink),var(--pink-d));margin-top:14px;transition:transform .12s,opacity .15s;}
 .btn:active{transform:scale(.98);}
 .btn[disabled]{opacity:.5;}
@@ -43,9 +44,6 @@ a{color:inherit;}
 .btn.google svg{width:18px;height:18px;}
 .or-div{display:flex;align-items:center;gap:10px;margin:16px 0 2px;color:var(--muted2);font-size:11px;}
 .or-div::before,.or-div::after{content:'';flex:1;height:1px;background:var(--line);}
-.sent-icon{font-size:42px;text-align:center;margin:2px 0 10px;}
-.sent-title{font-size:18px;font-weight:800;text-align:center;}
-.sent-sub{font-size:13px;color:var(--muted);text-align:center;margin-top:7px;line-height:1.55;}
 .msg{font-size:13px;margin-top:12px;line-height:1.5;min-height:18px;text-align:center;}
 .msg.err{color:var(--pink);}
 .msg.ok{color:var(--green);}
@@ -135,10 +133,10 @@ a{color:inherit;}
 .cal-title{font-size:15px;font-weight:800;}
 .cal-nav{display:flex;gap:8px;}
 .cal-nav button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:17px;line-height:1;}
-.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;}
-.cal-dow{text-align:center;font-size:10px;font-weight:700;color:var(--muted2);padding-bottom:2px;}
-.cal-cell{aspect-ratio:1;min-width:0;border-radius:9px;background:var(--bg2);border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12.5px;color:var(--text);}
-.cal-cell.empty{background:transparent;}
+.cal-dows{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-bottom:6px;}
+.cal-dow{text-align:center;font-size:10px;font-weight:700;color:var(--muted2);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-auto-rows:46px;gap:5px;}
+.cal-cell{min-width:0;border-radius:9px;background:var(--bg2);border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12.5px;color:var(--text);overflow:hidden;}
 .cal-cell.today{border-color:var(--pink);color:var(--pink);font-weight:800;}
 .cal-cell.sel{background:var(--surface2);border-color:var(--purple);}
 .cal-dots{display:flex;gap:3px;height:6px;align-items:center;}
@@ -165,19 +163,19 @@ a{color:inherit;}
     <div id="emailStep">
       <p class="field-label">Email</p>
       <input id="emailInput" class="field" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" autocapitalize="off" spellcheck="false">
-      <button id="sendBtn" class="btn">Email me a sign-in link</button>
+      <button id="sendBtn" class="btn">Email me a code</button>
       <div class="or-div">or</div>
       <button id="googleBtn" class="btn google">
         <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
         Continue with Google
       </button>
     </div>
-    <div id="sentStep" class="hidden">
-      <div class="sent-icon">&#9993;&#65039;</div>
-      <p class="sent-title">Check your email</p>
-      <p class="sent-sub" id="sentSub">We sent a sign-in link. Open it on this device to sign in.</p>
-      <button id="resendBtn" class="btn ghost">Send again</button>
-      <button id="backBtn" class="btn ghost">Use a different method</button>
+    <div id="codeStep" class="hidden">
+      <p class="field-label">Enter the 6-digit code we emailed you</p>
+      <input id="codeInput" class="field code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="------">
+      <button id="verifyBtn" class="btn">Verify and sign in</button>
+      <button id="resendBtn" class="btn ghost">Resend code</button>
+      <button id="backBtn" class="btn ghost">Use a different email</button>
     </div>
     <p id="loginMsg" class="msg"></p>
   </div>
@@ -231,16 +229,25 @@ function fmtDate(iso){ return new Date(iso).toLocaleDateString('en',{day:'numeri
 function fmtFull(d){ return d.toLocaleDateString('en',{day:'numeric',month:'short',year:'numeric'}); }
 function gmailUrl(id){ return 'https://mail.google.com/mail/u/0/#all/'+id; }
 
-async function sendLink(){
+async function sendCode(){
   const email = $('emailInput').value.trim().toLowerCase();
   if(!email || !email.includes('@')){ setMsg('Enter a valid email.','err'); return; }
-  S.email = email; $('sendBtn').disabled=true; $('resendBtn').disabled=true; setMsg('Sending...','');
+  S.email = email; $('sendBtn').disabled=true; setMsg('Sending...','');
   const redirect = window.location.origin + window.location.pathname;
   const { error } = await db.auth.signInWithOtp({ email, options:{ shouldCreateUser:true, emailRedirectTo:redirect } });
-  $('sendBtn').disabled=false; $('resendBtn').disabled=false;
+  $('sendBtn').disabled=false;
   if(error){ setMsg(error.message,'err'); return; }
-  $('sentSub').textContent = 'We sent a sign-in link to '+email+'. Open it on this device, then return here.';
-  $('emailStep').classList.add('hidden'); $('sentStep').classList.remove('hidden'); setMsg('','');
+  $('emailStep').classList.add('hidden'); $('codeStep').classList.remove('hidden');
+  setMsg('Code sent to '+email+'. Check your inbox.','ok'); $('codeInput').focus();
+}
+async function verifyCode(){
+  const token = $('codeInput').value.trim();
+  if(token.length<6){ setMsg('Enter the 6-digit code.','err'); return; }
+  $('verifyBtn').disabled=true; setMsg('Verifying...','');
+  let res = await db.auth.verifyOtp({ email:S.email, token, type:'email' });
+  if(res.error){ res = await db.auth.verifyOtp({ email:S.email, token, type:'signup' }); }
+  $('verifyBtn').disabled=false;
+  if(res.error){ setMsg(res.error.message,'err'); return; }
 }
 async function signInGoogle(){
   setMsg('Opening Google...','');
@@ -355,7 +362,7 @@ function card(it){
       (it.snippet?'<div class="card-snippet">'+escH(it.snippet)+'</div>':'')+
       actionBox+
       '<div class="card-foot">'+topic+label+due+ageTxt+'</div>'+
-      '<div class="card-actions"><button class="gmail-btn" data-act="gmail" data-id="'+escH(it.thread_id)+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Open in Gmail</button></div>'+
+      '<div class="card-actions"><a class="gmail-btn" data-act="gmail" data-id="'+escH(it.thread_id)+'" href="'+gmailUrl(it.thread_id)+'" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Open in Gmail</a></div>'+
     '</div>'+
   '</div>';
 }
@@ -371,8 +378,8 @@ function renderCalendar(){
     if(it.due_date){ const d=new Date(it.due_date); if(d.getFullYear()===y&&d.getMonth()===m){ (due[d.getDate()]=due[d.getDate()]||[]).push(it); } }
   });
   const dow=['Su','Mo','Tu','We','Th','Fr','Sa'];
-  let cells=dow.map(d=>'<div class="cal-dow">'+d+'</div>').join('');
-  for(let i=0;i<startDow;i++) cells+='<div class="cal-cell empty"></div>';
+  const dows='<div class="cal-dows">'+dow.map(d=>'<div class="cal-dow">'+d+'</div>').join('')+'</div>';
+  let cells='';
   const t=new Date();
   for(let day=1;day<=daysIn;day++){
     const isToday=t.getFullYear()===y&&t.getMonth()===m&&t.getDate()===day;
@@ -380,9 +387,10 @@ function renderCalendar(){
     let dots='';
     if(land[day]) dots+='<span class="cal-dot land"></span>';
     if(due[day]) dots+='<span class="cal-dot due"></span>';
-    cells+='<div class="cal-cell'+(isToday?' today':'')+(sel?' sel':'')+'" data-cal-day="'+day+'"><span>'+day+'</span><span class="cal-dots">'+dots+'</span></div>';
+    const off=(day===1)?' style="grid-column-start:'+(startDow+1)+'"':'';
+    cells+='<div class="cal-cell'+(isToday?' today':'')+(sel?' sel':'')+'" data-cal-day="'+day+'"'+off+'><span>'+day+'</span><span class="cal-dots">'+dots+'</span></div>';
   }
-  let head='<div class="cal-card"><div class="cal-head"><div class="cal-title">'+title+'</div><div class="cal-nav"><button data-cal-nav="-1">&#8249;</button><button data-cal-nav="1">&#8250;</button></div></div><div class="cal-grid">'+cells+'</div><div class="cal-legend"><span><i style="background:var(--purple)"></i>Critical landed</span><span><i style="background:var(--pink)"></i>Action due</span></div></div>';
+  let head='<div class="cal-card"><div class="cal-head"><div class="cal-title">'+title+'</div><div class="cal-nav"><button data-cal-nav="-1">&#8249;</button><button data-cal-nav="1">&#8250;</button></div></div>'+dows+'<div class="cal-grid">'+cells+'</div><div class="cal-legend"><span><i style="background:var(--purple)"></i>Critical landed</span><span><i style="background:var(--pink)"></i>Action due</span></div></div>';
   let list='', listTitle='';
   if(S.calSel && due[S.calSel]){ listTitle='Due on '+S.calSel+' '+first.toLocaleDateString('en',{month:'short'}); list=due[S.calSel].map(card).join(''); }
   else { listTitle='Upcoming deadlines'; const withDue=S.items.filter(i=>i.due_date && i.status!=='resolved').sort((a,b)=>new Date(a.due_date)-new Date(b.due_date)); list = withDue.length ? withDue.map(card).join('') : '<div class="empty"><div class="emoji">&#128197;</div><div class="e-sub">No deadlines on record yet.</div></div>'; }
@@ -404,23 +412,25 @@ function footer(){
   return line1 + (cover?'<br>'+cover:'');
 }
 
-$('sendBtn').addEventListener('click', sendLink);
+$('sendBtn').addEventListener('click', sendCode);
 $('googleBtn').addEventListener('click', signInGoogle);
-$('resendBtn').addEventListener('click', sendLink);
-$('backBtn').addEventListener('click', ()=>{ $('sentStep').classList.add('hidden'); $('emailStep').classList.remove('hidden'); setMsg('',''); });
-$('emailInput').addEventListener('keydown', e=>{ if(e.key==='Enter') sendLink(); });
+$('verifyBtn').addEventListener('click', verifyCode);
+$('resendBtn').addEventListener('click', sendCode);
+$('backBtn').addEventListener('click', ()=>{ $('codeStep').classList.add('hidden'); $('emailStep').classList.remove('hidden'); setMsg('',''); });
+$('emailInput').addEventListener('keydown', e=>{ if(e.key==='Enter') sendCode(); });
+$('codeInput').addEventListener('keydown', e=>{ if(e.key==='Enter') verifyCode(); });
 $('refreshBtn').addEventListener('click', ()=>loadData(true));
 $('signOutBtn').addEventListener('click', signOut);
 $('tabs').addEventListener('click', e=>{ const b=e.target.closest('.tab'); if(!b) return; S.tab=b.dataset.tab; S.calSel=null; renderApp(); });
 $('main').addEventListener('click', e=>{
   const nav=e.target.closest('[data-cal-nav]');
-  if(nav){ S.calM+=parseInt(nav.dataset.calNav,10); if(S.calM<0){S.calM=11;S.calY--;} if(S.calM>11){S.calM=0;S.calY++;} S.calSel=null; renderApp(); return; }
+  if(nav){ e.preventDefault(); S.calM+=parseInt(nav.dataset.calNav,10); if(S.calM<0){S.calM=11;S.calY--;} if(S.calM>11){S.calM=0;S.calY++;} S.calSel=null; renderApp(); return; }
+  const gm=e.target.closest('[data-act="gmail"]');
+  if(gm){ const id=gm.dataset.id; const it=S.items.find(x=>x.thread_id===id); if(it && it.status==='unread'){ it.status='read'; db.rpc('gb_set_status',{p_thread_id:id,p_status:'read'}); setTimeout(renderApp,60); } return; }
   const day=e.target.closest('[data-cal-day]');
   if(day){ const dn=parseInt(day.dataset.calDay,10); S.calSel=(S.calSel===dn?null:dn); renderApp(); return; }
   const tg=e.target.closest('[data-act="toggle"]');
   if(tg){ const id=tg.dataset.id; const it=S.items.find(x=>x.thread_id===id); if(it) setStatus(id, it.status==='resolved'?'unread':'resolved'); return; }
-  const gm=e.target.closest('[data-act="gmail"]');
-  if(gm){ const id=gm.dataset.id; const it=S.items.find(x=>x.thread_id===id); if(it && it.status==='unread') setStatus(id,'read'); window.open(gmailUrl(id),'_blank'); return; }
 });
 
 db.auth.onAuthStateChange((event, session)=>{ if(session && session.user){ S.email=session.user.email||''; showApp(); loadData(); } else { showLogin(); } });
