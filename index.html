@@ -68,7 +68,7 @@ a{color:inherit;}
 .tab .pill{background:var(--surface2);color:var(--muted);font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;}
 .tab.active .pill{background:var(--pink);color:#fff;}
 
-.content{padding:14px 14px calc(env(safe-area-inset-bottom) + 86px);max-width:620px;margin:0 auto;}
+.content{padding:14px 14px calc(env(safe-area-inset-bottom) + 92px);max-width:620px;margin:0 auto;}
 .banner{border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;background:linear-gradient(135deg,rgba(255,77,109,.16),rgba(160,107,255,.14));border:1px solid rgba(255,77,109,.22);}
 .banner .b-label{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--pink);}
 .banner .b-text{font-size:14px;line-height:1.55;margin-top:6px;color:var(--text);}
@@ -112,10 +112,12 @@ a{color:inherit;}
 .chip{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:11px;}
 .chip.topic{background:var(--surface2);color:var(--muted);}
 .chip.label{background:var(--read-bg);color:var(--purple);}
-.due{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:11px;}
-.due.calm{background:var(--surface2);color:var(--muted);}
-.due.soon{background:var(--must-bg);color:var(--amber);}
-.due.urgent{background:var(--crit-bg);color:var(--pink);}
+.deadline-chip{background:var(--surface2);color:var(--muted);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:11px;}
+.cd{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:11px;}
+.cd.safe{background:rgba(61,220,145,.15);color:var(--green);}
+.cd.attention{background:var(--must-bg);color:var(--amber);}
+.cd.immediate{background:var(--crit-bg);color:var(--pink);}
+.cd.alert{background:var(--pink);color:#fff;font-size:12.5px;font-weight:800;padding:4px 12px;box-shadow:0 0 0 1px rgba(255,77,109,.4);}
 .age{font-size:10.5px;color:var(--muted2);}
 .age.warn{color:var(--amber);}
 .card-actions{display:flex;gap:8px;margin-top:11px;}
@@ -128,14 +130,14 @@ a{color:inherit;}
 .empty .e-title{font-size:17px;font-weight:700;}
 .empty .e-sub{font-size:13.5px;color:var(--muted);max-width:260px;line-height:1.5;}
 
-.cal-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:14px;}
+.cal-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:14px;overflow:hidden;}
 .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
 .cal-title{font-size:15px;font-weight:800;}
 .cal-nav{display:flex;gap:8px;}
 .cal-nav button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:17px;line-height:1;}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;}
 .cal-dow{text-align:center;font-size:10px;font-weight:700;color:var(--muted2);padding-bottom:2px;}
-.cal-cell{aspect-ratio:1;border-radius:9px;background:var(--bg2);border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12.5px;color:var(--text);}
+.cal-cell{aspect-ratio:1;min-width:0;border-radius:9px;background:var(--bg2);border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12.5px;color:var(--text);}
 .cal-cell.empty{background:transparent;}
 .cal-cell.today{border-color:var(--pink);color:var(--pink);font-weight:800;}
 .cal-cell.sel{background:var(--surface2);border-color:var(--purple);}
@@ -143,13 +145,13 @@ a{color:inherit;}
 .cal-dot{width:5px;height:5px;border-radius:50%;}
 .cal-dot.land{background:var(--purple);}
 .cal-dot.due{background:var(--pink);}
-.cal-legend{display:flex;gap:16px;margin:13px 2px 2px;font-size:11px;color:var(--muted);}
+.cal-legend{display:flex;gap:16px;margin:13px 2px 2px;font-size:11px;color:var(--muted);flex-wrap:wrap;}
 .cal-legend span{display:inline-flex;align-items:center;gap:6px;}
 .cal-legend i{width:8px;height:8px;border-radius:50%;}
 
-.foot{position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,22,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:9px 16px calc(env(safe-area-inset-bottom) + 9px);font-size:10.5px;color:var(--muted2);text-align:center;line-height:1.5;z-index:40;}
+.foot{position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,22,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 16px calc(env(safe-area-inset-bottom) + 8px);font-size:10.5px;color:var(--muted2);text-align:center;line-height:1.5;z-index:40;}
 .spinner{width:40px;height:40px;border:3px solid var(--surface2);border-top-color:var(--pink);border-radius:50%;animation:spin .75s linear infinite;}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;z-index:90;background:var(--surface2);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:600;padding:11px 18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:90;background:var(--surface2);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:600;padding:11px 18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px);}
 </style>
 </head>
@@ -226,6 +228,7 @@ function timeAgo(iso){ if(!iso) return ''; const d=new Date(iso), s=Math.floor((
 function daysOld(iso){ if(!iso) return 0; return Math.floor((Date.now()-new Date(iso).getTime())/86400000); }
 function daysUntil(iso){ const d=new Date(iso); d.setHours(0,0,0,0); const t=new Date(); t.setHours(0,0,0,0); return Math.round((d-t)/86400000); }
 function fmtDate(iso){ return new Date(iso).toLocaleDateString('en',{day:'numeric',month:'short'}); }
+function fmtFull(d){ return d.toLocaleDateString('en',{day:'numeric',month:'short',year:'numeric'}); }
 function gmailUrl(id){ return 'https://mail.google.com/mail/u/0/#all/'+id; }
 
 async function sendLink(){
@@ -321,22 +324,24 @@ function trendStrip(){
   const cols = runs.map(r=>{ const h=Math.round(((r.organized||0)/max)*100); const isToday=r.run_date===today; const d=new Date(r.run_date); const lab=isNaN(d)?'':d.toLocaleDateString('en',{weekday:'short'}); return '<div class="bcol"><div class="bwrap"><div class="bar'+(isToday?' today':'')+'" style="height:'+Math.max(8,h)+'%" title="'+r.run_date+': '+(r.organized||0)+' organised"></div></div><div class="blab">'+lab+'</div></div>'; }).join('');
   return '<div class="trend"><div class="trend-head"><span class="t-title">Organised per day</span><span class="t-sub">last '+runs.length+' runs</span></div><div class="bars">'+cols+'</div></div>';
 }
-function duePill(it){
+function dueChips(it){
   if(!it.due_date) return '';
   const n = daysUntil(it.due_date);
-  const lbl = it.due_label ? it.due_label+' ' : 'Due ';
-  let txt, cls;
-  if(n<0){ txt='Overdue by '+Math.abs(n)+'d'; cls='urgent'; }
-  else if(n===0){ txt=lbl+fmtDate(it.due_date)+' . today'; cls='urgent'; }
-  else if(n===1){ txt=lbl+fmtDate(it.due_date)+' . tomorrow'; cls='urgent'; }
-  else { txt=lbl+fmtDate(it.due_date)+' . '+n+'d left'; cls=n<=7?'soon':'calm'; }
-  return '<span class="due '+cls+'">'+escH(txt)+'</span>';
+  const dl = (it.due_label?it.due_label+' ':'Due ')+fmtDate(it.due_date);
+  let cd, cls;
+  if(n<0){ cd='Overdue '+Math.abs(n)+'d'; cls='alert'; }
+  else if(n===0){ cd='Due today'; cls='alert'; }
+  else if(n<=2){ cd=n+(n===1?' day left':' days left'); cls='alert'; }
+  else if(n<=6){ cd=n+'d left'; cls='immediate'; }
+  else if(n<=14){ cd=n+'d left'; cls='attention'; }
+  else { cd=n+'d left'; cls='safe'; }
+  return '<span class="deadline-chip">'+escH(dl)+'</span><span class="cd '+cls+'">'+escH(cd)+'</span>';
 }
 function card(it){
   const c = CATS[it.category] || CATS.read_later;
   const resolved = it.status==='resolved';
   const isRead = it.status==='read';
-  const due = duePill(it);
+  const due = dueChips(it);
   const age = daysOld(it.gmail_date);
   const ageTxt = (!resolved && !it.due_date && age>=AGE_WARN_DAYS) ? '<span class="age warn">'+age+'d waiting</span>' : '';
   const topic = it.topic ? '<span class="chip topic">'+escH(it.topic)+'</span>' : '';
@@ -387,10 +392,16 @@ function emptyState(title,sub){ return '<div class="empty"><div class="emoji">'+
 function errorState(msg){ return '<div class="empty"><div class="emoji">⚠️</div><div class="e-title">Could not load</div><div class="e-sub">'+escH(msg)+'</div></div>'; }
 function footer(){
   const r = S.runs && S.runs[0];
-  if(!r) return 'No run logged yet. Your morning triage will populate this.';
-  const m = r.build_meta || {};
-  const when = r.run_at ? new Date(r.run_at).toLocaleString('en',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : r.run_date;
-  return ['Last run '+when, (r.total_processed!=null?r.total_processed+' processed':null), (r.organized!=null?r.organized+' organised':null), (m.version?'v'+m.version:null)].filter(Boolean).join('  .  ');
+  const dts = S.items.map(i=>i.gmail_date).filter(Boolean).map(d=>+new Date(d)).filter(x=>!isNaN(x));
+  const cover = dts.length ? ('Covering '+fmtFull(new Date(Math.min(...dts)))+' to '+fmtFull(new Date())) : '';
+  let line1;
+  if(!r){ line1='No run logged yet. Your morning triage will populate this.'; }
+  else {
+    const m = r.build_meta || {};
+    const when = r.run_at ? new Date(r.run_at).toLocaleString('en',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : r.run_date;
+    line1 = ['Last run '+when, (r.total_processed!=null?r.total_processed+' processed':null), (r.organized!=null?r.organized+' organised':null), (m.version?'v'+m.version:null)].filter(Boolean).join('  .  ');
+  }
+  return line1 + (cover?'<br>'+cover:'');
 }
 
 $('sendBtn').addEventListener('click', sendLink);
