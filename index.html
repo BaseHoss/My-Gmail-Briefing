@@ -227,7 +227,7 @@ function daysOld(iso){ if(!iso) return 0; return Math.floor((Date.now()-new Date
 function daysUntil(iso){ const d=new Date(iso); d.setHours(0,0,0,0); const t=new Date(); t.setHours(0,0,0,0); return Math.round((d-t)/86400000); }
 function fmtDate(iso){ return new Date(iso).toLocaleDateString('en',{day:'numeric',month:'short'}); }
 function fmtFull(d){ return d.toLocaleDateString('en',{day:'numeric',month:'short',year:'numeric'}); }
-function gmailUrl(id){ return 'https://mail.google.com/mail/u/0/#all/'+id; }
+function gmailUrl(it){ const q=('from:'+(it.from_email||'')+' '+(it.subject||'')).trim(); return 'https://mail.google.com/mail/u/'+encodeURIComponent(OWNER_EMAIL)+'/#search/'+encodeURIComponent(q); }
 
 async function sendCode(){
   const email = $('emailInput').value.trim().toLowerCase();
@@ -362,7 +362,7 @@ function card(it){
       (it.snippet?'<div class="card-snippet">'+escH(it.snippet)+'</div>':'')+
       actionBox+
       '<div class="card-foot">'+topic+label+due+ageTxt+'</div>'+
-      '<div class="card-actions"><a class="gmail-btn" data-act="gmail" data-id="'+escH(it.thread_id)+'" href="'+gmailUrl(it.thread_id)+'" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Open in Gmail</a></div>'+
+      '<div class="card-actions"><a class="gmail-btn" data-act="gmail" data-id="'+escH(it.thread_id)+'" href="'+escH(gmailUrl(it))+'" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Open in Gmail</a></div>'+
     '</div>'+
   '</div>';
 }
