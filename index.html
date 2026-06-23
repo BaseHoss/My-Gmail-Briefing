@@ -171,8 +171,8 @@ a{color:inherit;text-decoration:none;}
       </button>
     </div>
     <div id="codeStep" class="hidden">
-      <p class="field-label">Enter the 6-digit code we emailed you</p>
-      <input id="codeInput" class="field code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="------">
+      <p class="field-label">Enter the 8-digit code we emailed you</p>
+      <input id="codeInput" class="field code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="--------">
       <button id="verifyBtn" class="btn">Verify and sign in</button>
       <button id="resendBtn" class="btn ghost">Resend code</button>
       <button id="backBtn" class="btn ghost">Use a different email</button>
@@ -242,7 +242,7 @@ async function sendCode(){
 }
 async function verifyCode(){
   const token = $('codeInput').value.trim();
-  if(token.length<6){ setMsg('Enter the 6-digit code.','err'); return; }
+  if(token.length<8){ setMsg('Enter the 8-digit code.','err'); return; }
   $('verifyBtn').disabled=true; setMsg('Verifying...','');
   let res = await db.auth.verifyOtp({ email:S.email, token, type:'email' });
   if(res.error){ res = await db.auth.verifyOtp({ email:S.email, token, type:'signup' }); }
