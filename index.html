@@ -227,7 +227,7 @@ function daysOld(iso){ if(!iso) return 0; return Math.floor((Date.now()-new Date
 function daysUntil(iso){ const d=new Date(iso); d.setHours(0,0,0,0); const t=new Date(); t.setHours(0,0,0,0); return Math.round((d-t)/86400000); }
 function fmtDate(iso){ return new Date(iso).toLocaleDateString('en',{day:'numeric',month:'short'}); }
 function fmtFull(d){ return d.toLocaleDateString('en',{day:'numeric',month:'short',year:'numeric'}); }
-function gmailUrl(it){ const q=('from:'+(it.from_email||'')+' '+(it.subject||'')).trim(); return 'https://mail.google.com/mail/u/'+encodeURIComponent(OWNER_EMAIL)+'/#search/'+encodeURIComponent(q); }
+function gmailUrl(it){ const q=('from:'+(it.from_email||'')+' '+(it.subject||'')).trim(); return 'https://mail.google.com/mail/u/0/#search/'+encodeURIComponent(q); }
 
 async function sendCode(){
   const email = $('emailInput').value.trim().toLowerCase();
