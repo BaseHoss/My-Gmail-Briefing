@@ -122,6 +122,9 @@ a{color:inherit;text-decoration:none;}
 .gmail-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--text);font-size:12.5px;font-weight:600;flex:1;}
 .gmail-btn:active{background:var(--line);}
 .gmail-btn svg{width:15px;height:15px;}
+.more-btn{width:100%;background:var(--surface);border:1px solid var(--line);color:var(--purple);font-size:12.5px;font-weight:700;padding:11px;border-radius:12px;margin:2px 0 6px;}
+.more-btn:active{background:var(--surface2);}
+.later-note{font-size:11.5px;color:var(--muted2);text-align:center;padding:12px 8px 4px;line-height:1.5;}
 
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;text-align:center;gap:12px;}
 .empty .emoji{font-size:50px;}
@@ -141,8 +144,8 @@ a{color:inherit;text-decoration:none;}
 .cal-cell.sel{background:var(--surface2);border-color:var(--purple);}
 .cal-dots{display:flex;gap:3px;height:6px;align-items:center;}
 .cal-dot{width:5px;height:5px;border-radius:50%;}
-.cal-dot.land{background:var(--purple);}
-.cal-dot.due{background:var(--pink);}
+.cal-dot.land{background:var(--pink);}
+.cal-dot.due{background:var(--gold);}
 .cal-legend{display:flex;gap:16px;margin:13px 2px 2px;font-size:11px;color:var(--muted);flex-wrap:wrap;}
 .cal-legend span{display:inline-flex;align-items:center;gap:6px;}
 .cal-legend i{width:8px;height:8px;border-radius:50%;}
@@ -211,6 +214,9 @@ const SUPABASE_URL = 'https://pltxzdwgvmdlbhlcizjn.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsdHh6ZHdndm1kbGJobGNpempuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNDAxNjksImV4cCI6MjA5NjkxNjE2OX0.KmC-aT0c4MBEedoL5MDyGs2MsLOxevlJR9L9hA6M09I';
 const OWNER_EMAIL = 'bassem.hoss17@gmail.com';
 const AGE_WARN_DAYS = 3;
+const READ_LATER_DAYS = 30;   // Read Later stays in view this long; older filed mail remains in Gmail
+const LATER_PREVIEW = 6;      // how many Read Later cards the All tab previews before "view all"
+const APP_VERSION = '2.5';
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true, flowType:'implicit' } });
 
 const now0 = new Date();
@@ -265,7 +271,7 @@ async function loadData(silent){
   S.loading=true; $('refreshBtn').classList.add('spin');
   try{
     const [itemsRes, runsRes] = await Promise.all([
-      db.from('gb_triage_items').select('*').order('gmail_date',{ascending:false}),
+      db.from('gb_triage_items').select('*').order('gmail_date',{ascending:false,nullsFirst:false}),
       db.from('gb_daily_runs').select('*').order('run_date',{ascending:false}).limit(14)
     ]);
     if(itemsRes.error) throw itemsRes.error;
@@ -287,8 +293,12 @@ async function setStatus(threadId, status){
 }
 
 function renderApp(){
-  const active = S.items.filter(i=>i.status!=='resolved');
   const resolved = S.items.filter(i=>i.status==='resolved');
+  const notResolved = S.items.filter(i=>i.status!=='resolved');
+  // Read Later ages out of the active view after READ_LATER_DAYS (undated items are kept).
+  const inWindow = i => i.category!=='read_later' || !i.gmail_date || daysOld(i.gmail_date)<=READ_LATER_DAYS;
+  const active = notResolved.filter(inWindow);
+  const hiddenLater = notResolved.length - active.length;
   const byCat = { critical:[], must_read:[], read_later:[] };
   active.forEach(i=>{ if(byCat[i.category]) byCat[i.category].push(i); });
   const unread = active.filter(i=>i.status==='unread').length;
@@ -307,15 +317,27 @@ function renderApp(){
   else if(S.tab==='done'){ html = resolved.length ? resolved.map(card).join('') : emptyState('No completed items yet','Tick items off as you handle them and they collect here.'); }
   else if(S.tab==='all'){
     html += backlogBanner(active) + trendStrip();
-    if(active.length===0){ html += emptyState('All clear','Nothing waiting on you. Your next morning run will surface new mail here.'); }
-    else { CAT_ORDER.forEach(cat=>{ if(byCat[cat].length===0) return; html += '<div class="sec-label '+CATS[cat].key+'"><span class="dot"></span>'+CATS[cat].sec+'</div>'; html += byCat[cat].map(card).join(''); }); }
-  } else { const list = byCat[S.tab]||[]; html = list.length ? list.map(card).join('') : emptyState('Nothing here','No open items in this category.'); }
+    if(active.length===0){ html += emptyState('All clear','Nothing waiting on you. Your next morning run will surface new mail here.') + laterNote(hiddenLater); }
+    else { CAT_ORDER.forEach(cat=>{
+      if(byCat[cat].length===0) return;
+      html += '<div class="sec-label '+CATS[cat].key+'"><span class="dot"></span>'+CATS[cat].sec+'</div>';
+      if(cat==='read_later'){
+        html += byCat.read_later.slice(0,LATER_PREVIEW).map(card).join('');
+        const more = byCat.read_later.length - LATER_PREVIEW;
+        if(more>0) html += '<button class="more-btn" data-act="go-later">View all '+byCat.read_later.length+' in Read Later</button>';
+      } else { html += byCat[cat].map(card).join(''); }
+    }); }
+  } else {
+    const list = byCat[S.tab]||[];
+    html = list.length ? list.map(card).join('') : emptyState('Nothing here','No open items in this category.');
+    if(S.tab==='read_later') html += laterNote(hiddenLater);
+  }
   $('main').innerHTML = html;
   $('foot').innerHTML = footer();
 }
 
 function backlogBanner(active){
-  const aging = active.filter(i=>daysOld(i.gmail_date)>=AGE_WARN_DAYS);
+  const aging = active.filter(i=>i.category!=='read_later' && daysOld(i.gmail_date)>=AGE_WARN_DAYS);
   const crit = active.filter(i=>i.category==='critical');
   if(crit.length===0 && aging.length===0) return '';
   let txt;
@@ -350,7 +372,7 @@ function card(it){
   const isRead = it.status==='read';
   const due = dueChips(it);
   const age = daysOld(it.gmail_date);
-  const ageTxt = (!resolved && !it.due_date && age>=AGE_WARN_DAYS) ? '<span class="age warn">'+age+'d waiting</span>' : '';
+  const ageTxt = (!resolved && it.category!=='read_later' && !it.due_date && age>=AGE_WARN_DAYS) ? '<span class="age warn">'+age+'d waiting</span>' : '';
   const topic = it.topic ? '<span class="chip topic">'+escH(it.topic)+'</span>' : '';
   const label = (it.category==='read_later' && it.gmail_label) ? '<span class="chip label">'+escH(it.gmail_label)+'</span>' : '';
   const actionBox = it.action ? '<div class="action-box"><div class="a-label">What to do</div><div class="a-text">'+escH(it.action)+'</div></div>' : '';
@@ -390,13 +412,14 @@ function renderCalendar(){
     const off=(day===1)?' style="grid-column-start:'+(startDow+1)+'"':'';
     cells+='<div class="cal-cell'+(isToday?' today':'')+(sel?' sel':'')+'" data-cal-day="'+day+'"'+off+'><span>'+day+'</span><span class="cal-dots">'+dots+'</span></div>';
   }
-  let head='<div class="cal-card"><div class="cal-head"><div class="cal-title">'+title+'</div><div class="cal-nav"><button data-cal-nav="-1">&#8249;</button><button data-cal-nav="1">&#8250;</button></div></div>'+dows+'<div class="cal-grid">'+cells+'</div><div class="cal-legend"><span><i style="background:var(--purple)"></i>Critical landed</span><span><i style="background:var(--pink)"></i>Action due</span></div></div>';
+  let head='<div class="cal-card"><div class="cal-head"><div class="cal-title">'+title+'</div><div class="cal-nav"><button data-cal-nav="-1">&#8249;</button><button data-cal-nav="1">&#8250;</button></div></div>'+dows+'<div class="cal-grid">'+cells+'</div><div class="cal-legend"><span><i style="background:var(--pink)"></i>Critical landed</span><span><i style="background:var(--gold)"></i>Action due</span></div></div>';
   let list='', listTitle='';
   if(S.calSel && due[S.calSel]){ listTitle='Due on '+S.calSel+' '+first.toLocaleDateString('en',{month:'short'}); list=due[S.calSel].map(card).join(''); }
   else { listTitle='Upcoming deadlines'; const withDue=S.items.filter(i=>i.due_date && i.status!=='resolved').sort((a,b)=>new Date(a.due_date)-new Date(b.due_date)); list = withDue.length ? withDue.map(card).join('') : '<div class="empty"><div class="emoji">&#128197;</div><div class="e-sub">No deadlines on record yet.</div></div>'; }
   return head + '<div class="sec-label"><span class="dot" style="background:var(--muted)"></span>'+escH(listTitle)+'</div>' + list;
 }
 function emptyState(title,sub){ return '<div class="empty"><div class="emoji">'+(title==='All clear'?'✨':'📭')+'</div><div class="e-title">'+escH(title)+'</div><div class="e-sub">'+escH(sub)+'</div></div>'; }
+function laterNote(n){ return n>0 ? '<div class="later-note">'+n+' older Read Later '+(n===1?'item is':'items are')+' filed in Gmail, kept out of view after '+READ_LATER_DAYS+' days.</div>' : ''; }
 function errorState(msg){ return '<div class="empty"><div class="emoji">⚠️</div><div class="e-title">Could not load</div><div class="e-sub">'+escH(msg)+'</div></div>'; }
 function footer(){
   const r = S.runs && S.runs[0];
@@ -407,9 +430,9 @@ function footer(){
   else {
     const m = r.build_meta || {};
     const when = r.run_at ? new Date(r.run_at).toLocaleString('en',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : r.run_date;
-    line1 = ['Last run '+when, (r.total_processed!=null?r.total_processed+' processed':null), (r.organized!=null?r.organized+' organised':null), (m.version?'v'+m.version:null)].filter(Boolean).join('  .  ');
+    line1 = ['Last run '+when, (r.total_processed!=null?r.total_processed+' processed':null), (r.organized!=null?r.organized+' organised':null)].filter(Boolean).join('  .  ');
   }
-  return line1 + (cover?'<br>'+cover:'');
+  return line1 + (cover?'<br>'+cover:'') + '<br>Briefing app v'+APP_VERSION;
 }
 
 $('sendBtn').addEventListener('click', sendCode);
@@ -427,6 +450,8 @@ $('main').addEventListener('click', e=>{
   if(nav){ e.preventDefault(); S.calM+=parseInt(nav.dataset.calNav,10); if(S.calM<0){S.calM=11;S.calY--;} if(S.calM>11){S.calM=0;S.calY++;} S.calSel=null; renderApp(); return; }
   const gm=e.target.closest('[data-act="gmail"]');
   if(gm){ const id=gm.dataset.id; const it=S.items.find(x=>x.thread_id===id); if(it && it.status==='unread'){ it.status='read'; db.rpc('gb_set_status',{p_thread_id:id,p_status:'read'}); setTimeout(renderApp,60); } return; }
+  const gl=e.target.closest('[data-act="go-later"]');
+  if(gl){ S.tab='read_later'; S.calSel=null; window.scrollTo(0,0); renderApp(); return; }
   const day=e.target.closest('[data-cal-day]');
   if(day){ const dn=parseInt(day.dataset.calDay,10); S.calSel=(S.calSel===dn?null:dn); renderApp(); return; }
   const tg=e.target.closest('[data-act="toggle"]');
