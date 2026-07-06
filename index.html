@@ -6,11 +6,17 @@
 <meta name="theme-color" content="#0b0b16">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Gmail Briefing">
+<meta name="apple-mobile-web-app-title" content="Dawnline">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon.svg">
-<link rel="icon" href="icon.svg" type="image/svg+xml">
-<title>My Gmail Briefing</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="Dawnline - your inbox, triaged to zero each morning.">
+<meta property="og:title" content="Dawnline">
+<meta property="og:description" content="Your inbox, triaged to zero each morning.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://basehoss.github.io/My-Gmail-Briefing/">
+<meta property="og:image" content="https://basehoss.github.io/My-Gmail-Briefing/og-image.png">
+<title>Dawnline</title>
 <style>
 :root{
   --bg:#0b0b16; --bg2:#11111f; --surface:#1a1a2e; --surface2:#21213a;
@@ -160,7 +166,7 @@ a{color:inherit;text-decoration:none;}
 
 <div id="loginView" class="login-wrap">
   <img class="login-icon" src="icon.svg" alt="App icon">
-  <h1>My Gmail Briefing</h1>
+  <h1>Dawnline</h1>
   <p class="sub">Your inbox, triaged to zero each morning. Sign in to see what matters.</p>
   <div class="login-card">
     <div id="emailStep">
@@ -190,7 +196,7 @@ a{color:inherit;text-decoration:none;}
     <div class="hdr-top">
       <img class="hdr-icon" src="icon.svg" alt="">
       <div class="hdr-info">
-        <h1>My Gmail Briefing</h1>
+        <h1>Dawnline</h1>
         <p id="hdrSub">Loading...</p>
       </div>
       <button id="refreshBtn" class="hdr-btn" title="Re-read briefing" aria-label="Refresh">
@@ -432,7 +438,7 @@ function footer(){
     const when = r.run_at ? new Date(r.run_at).toLocaleString('en',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : r.run_date;
     line1 = ['Last run '+when, (r.total_processed!=null?r.total_processed+' processed':null), (r.organized!=null?r.organized+' organised':null)].filter(Boolean).join('  .  ');
   }
-  return line1 + (cover?'<br>'+cover:'') + '<br>Briefing app v'+APP_VERSION;
+  return line1 + (cover?'<br>'+cover:'') + '<br>Dawnline v'+APP_VERSION;
 }
 
 $('sendBtn').addEventListener('click', sendCode);
