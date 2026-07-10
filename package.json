@@ -1,0 +1,12 @@
+{
+  "name": "my-gmail-briefing-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright test suite for the Dawnline / My Gmail Briefing app (index.html). Tests only - never modifies the app.",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
+  }
+}

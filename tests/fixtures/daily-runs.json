@@ -1,0 +1,26 @@
+[
+  {
+    "run_date": "2026-07-10",
+    "run_at": "2026-07-10T07:05:00.000Z",
+    "total_processed": 9,
+    "junk_moved": 3,
+    "organized": 6,
+    "critical_count": 2,
+    "must_read_count": 3,
+    "read_later_count": 4,
+    "sources_scanned": [{ "label": "Gmail", "icon": "✉️", "status": "ok" }],
+    "build_meta": { "version": "task-3-retention" }
+  },
+  {
+    "run_date": "2026-07-09",
+    "run_at": "2026-07-09T07:04:00.000Z",
+    "total_processed": 7,
+    "junk_moved": 2,
+    "organized": 5,
+    "critical_count": 1,
+    "must_read_count": 2,
+    "read_later_count": 4,
+    "sources_scanned": [{ "label": "Gmail", "icon": "✉️", "status": "ok" }],
+    "build_meta": { "version": "task-3-retention" }
+  }
+]
