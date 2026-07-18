@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -17,6 +17,7 @@
 <meta property="og:url" content="https://basehoss.github.io/My-Gmail-Briefing/">
 <meta property="og:image" content="https://basehoss.github.io/My-Gmail-Briefing/og-image.png">
 <title>Dawnline</title>
+<script defer src="https://baseract-analytics-platform.vercel.app/bap.js" data-app="dawnline"></script>
 <style>
 :root{
   --bg:#0b0b16; --bg2:#11111f; --surface:#1a1a2e; --surface2:#21213a;
@@ -434,9 +435,9 @@ function renderCalendar(){
   return head + '<div class="sec-label"><span class="dot" style="background:var(--muted)"></span>'+escH(listTitle)+'</div>' + list;
 }
 function loadingState(){ return '<div class="empty"><div class="spinner"></div></div>'; }
-function emptyState(title,sub){ return '<div class="empty"><div class="emoji">'+(title==='All clear'?'✨':'📭')+'</div><div class="e-title">'+escH(title)+'</div><div class="e-sub">'+escH(sub)+'</div></div>'; }
+function emptyState(title,sub){ return '<div class="empty"><div class="emoji">'+(title==='All clear'?'âœ¨':'ðŸ“­')+'</div><div class="e-title">'+escH(title)+'</div><div class="e-sub">'+escH(sub)+'</div></div>'; }
 function laterNote(n){ return n>0 ? '<div class="later-note">'+n+' older Read Later '+(n===1?'item is':'items are')+' filed in Gmail, kept out of view after '+READ_LATER_DAYS+' days.</div>' : ''; }
-function errorState(msg){ return '<div class="empty"><div class="emoji">⚠️</div><div class="e-title">Could not load</div><div class="e-sub">'+escH(msg)+'</div></div>'; }
+function errorState(msg){ return '<div class="empty"><div class="emoji">âš ï¸</div><div class="e-title">Could not load</div><div class="e-sub">'+escH(msg)+'</div></div>'; }
 function footer(){
   const r = S.runs && S.runs[0];
   const dts = S.items.map(i=>i.gmail_date).filter(Boolean).map(d=>+new Date(d)).filter(x=>!isNaN(x));
